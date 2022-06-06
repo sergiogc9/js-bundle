@@ -1,3 +1,9 @@
+# [1.0.0-beta.5](https://github.com/sergiogc9/js-bundle/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2022-06-06)
+
+### Bug Fixes
+
+- Update necessary dependencies in package.json ([d5b6869](https://github.com/sergiogc9/js-bundle/commit/d5b686909214ec59223edb8209768c3ce0c7fa64))
+
 # [1.0.0-beta.4](https://github.com/sergiogc9/js-bundle/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2022-06-06)
 
 ### Bug Fixes

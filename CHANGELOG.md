@@ -1,3 +1,9 @@
+# [1.0.0-beta.3](https://github.com/sergiogc9/js-bundle/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2022-06-06)
+
+### Features
+
+- First bundle package function implementation added ([1690310](https://github.com/sergiogc9/js-bundle/commit/16903102b0f20f2e9cf2bac5165c91c46bad17ee))
+
 # [1.0.0-beta.2](https://github.com/sergiogc9/js-bundle/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2022-06-06)
 
 ### Bug Fixes

@@ -1,3 +1,3 @@
-const helloWorld = () => 'hello works! New tool!';
+const helloWorld = () => 'hello works!';
 
 export { helloWorld };

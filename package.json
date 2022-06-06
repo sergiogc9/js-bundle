@@ -24,6 +24,14 @@
 		"typescript:check": "tsc --noEmit -p .",
 		"unlink": "yarn unlink"
 	},
+	"dependencies": {
+		"chalk": "^4.0.0",
+		"esbuild": "^0.14.42",
+		"esbuild-node-externals": "^1.4.1",
+		"humanize-duration": "^3.27.2",
+		"rollup": "^2.75.5",
+		"rollup-plugin-dts": "^4.2.2"
+	},
 	"devDependencies": {
 		"@rollup/plugin-typescript": "^8.3.2",
 		"@semantic-release/changelog": "^6.0.1",
@@ -33,20 +41,14 @@
 		"@types/node": "^17.0.40",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
-		"chalk": "^4.0.0",
-		"esbuild": "^0.14.42",
-		"esbuild-node-externals": "^1.4.1",
 		"eslint": "^8.17.0",
 		"eslint-plugin-eslint-comments": "^3.2.0",
 		"eslint-plugin-import": "^2.26.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"fox-awesome-cli": "^1.1.0",
-		"humanize-duration": "^3.27.2",
 		"husky": "^8.0.1",
 		"lint-staged": "^13.0.0",
 		"prettier": "^2.6.2",
-		"rollup": "^2.75.5",
-		"rollup-plugin-dts": "^4.2.2",
 		"semantic-release": "^19.0.2",
 		"typescript": "^4.7.3"
 	},

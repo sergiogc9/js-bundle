@@ -10,7 +10,11 @@ const config = [
 			dir: 'dist',
 			format: 'cjs'
 		},
-		external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
+		external: [
+			...Object.keys(pkg.dependencies || {}),
+			...Object.keys(pkg.devDependencies || {}),
+			...Object.keys(pkg.peerDependencies || {})
+		],
 		plugins: [typescript()]
 	},
 	{

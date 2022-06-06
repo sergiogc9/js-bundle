@@ -10,6 +10,9 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"build": "rollup -c ./rollup.config.js",
 		"build:watch": "rollup -w -c ./rollup.config.js",

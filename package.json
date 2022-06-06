@@ -17,6 +17,8 @@
 	},
 	"devDependencies": {
 		"@rollup/plugin-typescript": "^8.3.2",
+		"@semantic-release/changelog": "^6.0.1",
+		"@semantic-release/git": "^10.0.1",
 		"@sergiogc9/eslint-config": "^1.0.8",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",

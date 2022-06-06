@@ -1,3 +1,9 @@
+# [1.0.0-beta.4](https://github.com/sergiogc9/js-bundle/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2022-06-06)
+
+### Bug Fixes
+
+- Add files property in package.json ([031e087](https://github.com/sergiogc9/js-bundle/commit/031e087cbeb514f27577e7a41de53ed8427769c7))
+
 # [1.0.0-beta.3](https://github.com/sergiogc9/js-bundle/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2022-06-06)
 
 ### Features

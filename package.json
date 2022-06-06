@@ -1,0 +1,38 @@
+{
+	"name": "@sergiogc9/js-bundle",
+	"version": "0.0.0",
+	"author": "Sergio G Cosgaya <sergiogcosgaya@gmail.com>",
+	"repository": "git@github.com:sergiogc9/js-bundle.git",
+	"description": "A set of utils to easily bundle JavaScript and TypeScript projects using a common config used in my other projects.",
+	"license": "MIT",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "rollup -c ./rollup.config.js",
+		"build:watch": "rollup -c -w ./rollup.config.js",
+		"lint": "eslint . --ignore-path .gitignore",
+		"prepare": "husky install",
+		"prettier": "prettier --write . --ignore-path .gitignore",
+		"prettier:check": "prettier --check . --ignore-path .gitignore",
+		"typescript:check": "tsc --noEmit -p ."
+	},
+	"devDependencies": {
+		"@rollup/plugin-typescript": "^8.3.2",
+		"@sergiogc9/eslint-config": "^1.0.8",
+		"@typescript-eslint/eslint-plugin": "^5.27.0",
+		"@typescript-eslint/parser": "^5.27.0",
+		"eslint": "^8.17.0",
+		"eslint-plugin-eslint-comments": "^3.2.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"fox-awesome-cli": "^1.1.0",
+		"husky": "^8.0.1",
+		"lint-staged": "^13.0.0",
+		"prettier": "^2.6.2",
+		"rollup": "^2.75.5",
+		"rollup-plugin-dts": "^4.2.2",
+		"typescript": "^4.7.3"
+	},
+	"lint-staged": {
+		"*.{js,ts,json,md}": "prettier --write"
+	}
+}

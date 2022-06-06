@@ -1,3 +1,1 @@
-const helloWorld = () => 'hello works!';
-
-export { helloWorld };
+export { buildPackage } from './build';

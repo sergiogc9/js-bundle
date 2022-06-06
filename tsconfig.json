@@ -1,13 +1,14 @@
 {
 	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
 		"lib": ["dom", "DOM.Iterable", "esnext"],
-		"module": "esnext",
+		"module": "ESNext",
 		"moduleResolution": "node",
 		"noImplicitAny": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"strict": true,
-		"target": "ES6"
+		"target": "ESNext"
 	},
 	"include": ["src/**/*", "rollup.config.js", "release.config.js"],
 	"exclude": ["node_modules"]

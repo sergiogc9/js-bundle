@@ -8,7 +8,7 @@ const config = [
 		input: 'src/index.ts',
 		output: {
 			dir: 'dist',
-			format: 'es'
+			format: 'cjs'
 		},
 		external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
 		plugins: [typescript()]

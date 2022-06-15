@@ -1,18 +1,17 @@
 import yargs from 'yargs';
 
-// import defaultHandler from './commands/default';
 import build from './commands/build';
+import defaultHandler from './commands/default';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 yargs(process.argv.slice(2))
 	.version()
 	.option('help', { alias: 'h' })
-	// .option('version', { alias: 'v' })
+	.option('version', { alias: 'v' })
 	.command(
 		'$0',
 		'',
 		y => y.usage('Usage: js-bundle <command> [options]'),
-		// () => defaultHandler(process.argv.slice(2))
-		() => console.log('JSDJK')
+		() => defaultHandler(process.argv.slice(2))
 	)
-	.command(build.name, build.description, build.config, build.handler);
+	.command(build.name, build.description, build.config, build.handler).argv;

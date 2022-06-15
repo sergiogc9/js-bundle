@@ -3,7 +3,6 @@ import { nodeExternalsPlugin } from 'esbuild-node-externals';
 import { Plugin, rollup } from 'rollup';
 import dts from 'rollup-plugin-dts';
 import humanizeDuration from 'humanize-duration';
-import chalk from 'chalk';
 
 import { BuildArgs } from './types';
 import log from './lib/log';

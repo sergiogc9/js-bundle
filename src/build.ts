@@ -65,7 +65,7 @@ const buildWithESBuild = async (
 			...commonConfig,
 			format: 'cjs',
 			logLevel: 'silent',
-			outfile: `${outDir}/index.cjs.js`,
+			outfile: `${outDir}/cjs/index.js`,
 			plugins: [nodeExternalsPlugin()],
 			watch: isWatchMode,
 			...esbuildOptions
@@ -73,7 +73,7 @@ const buildWithESBuild = async (
 		build({
 			...commonConfig,
 			format: 'esm',
-			outfile: `${outDir}/index.esm.js`,
+			outfile: `${outDir}/esm/index.js`,
 			plugins: [nodeExternalsPlugin()],
 			watch: isWatchMode
 				? {

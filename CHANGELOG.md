@@ -1,3 +1,10 @@
+# [1.0.0-beta.6](https://github.com/sergiogc9/js-bundle/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2022-06-15)
+
+### Features
+
+- Add js-bundle cli script ([b20f2f5](https://github.com/sergiogc9/js-bundle/commit/b20f2f51422c044d892fbc5aa7730215a85bb39c))
+- Change default output files when bundling ([62d5ab5](https://github.com/sergiogc9/js-bundle/commit/62d5ab57bc8f3d7d84261ecee445b01d0f14a5f5))
+
 # [1.0.0-beta.5](https://github.com/sergiogc9/js-bundle/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2022-06-06)
 
 ### Bug Fixes

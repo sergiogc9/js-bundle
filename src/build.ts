@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { build, BuildOptions } from 'esbuild';
 import { nodeExternalsPlugin } from 'esbuild-node-externals';
 import { Plugin, rollup } from 'rollup';
@@ -6,8 +5,8 @@ import dts from 'rollup-plugin-dts';
 import humanizeDuration from 'humanize-duration';
 import chalk from 'chalk';
 
-import { makeConsoleErrorRed } from './utils';
 import { BuildArgs } from './types';
+import log from './lib/log';
 
 const generateTypescriptDefinitionWithoutWatch = async (
 	input: string,
@@ -30,16 +29,12 @@ const generateTypescriptDefinitionWithoutWatch = async (
 		});
 	} catch (error: any) {
 		buildFailed = true;
-		console.error('An error ocurred while building TS definitions. Check logs above 🔝');
+		log.error('An error ocurred while building TS definitions. Check logs above 🔝');
 	}
 
 	if (bundle) await bundle.close();
 	if (!buildFailed) {
-		console.log(
-			chalk.greenBright(
-				`⚡ TS definitions build done in ${humanizeDuration(new Date().getTime() - startTime.getTime())}`
-			)
-		);
+		log.success(`⚡ TS definitions build done in ${humanizeDuration(new Date().getTime() - startTime.getTime())}`);
 	}
 	if (!isWatchMode) process.exit(buildFailed ? 1 : 0);
 };
@@ -79,10 +74,10 @@ const buildWithESBuild = async (
 				? {
 						onRebuild: (error, result) => {
 							if (error) {
-								console.error('An error ocurred while building the package. Check logs above 🔝');
+								log.error('An error ocurred while building the package. Check logs above 🔝');
 							}
 							if (result) {
-								console.log(chalk.greenBright('⚡ esbuild rebuild done'));
+								log.success('⚡ esbuild rebuild done');
 								onRebuildCallback();
 							}
 						}
@@ -92,9 +87,7 @@ const buildWithESBuild = async (
 		})
 	]);
 
-	console.log(
-		chalk.greenBright(`⚡ esbuild build done in ${humanizeDuration(new Date().getTime() - startTime.getTime())}`)
-	);
+	log.success(`⚡ esbuild build done in ${humanizeDuration(new Date().getTime() - startTime.getTime())}`);
 };
 
 const buildPackage = async ({
@@ -106,9 +99,9 @@ const buildPackage = async ({
 	withESBuild = true,
 	withTSDefinitions = true
 }: BuildArgs = {}) => {
-	makeConsoleErrorRed();
+	log.overrideConsoleErrorColor();
 
-	if (isWatchMode) console.log('Running build in watch mode...');
+	if (isWatchMode) log.info('Running build in watch mode...');
 
 	const generateTSDefinitions = async () => {
 		if (withTSDefinitions) {

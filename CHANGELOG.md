@@ -1,3 +1,9 @@
+# [1.1.0](https://github.com/sergiogc9/js-bundle/compare/v1.0.0...v1.1.0) (2022-06-17)
+
+### Features
+
+- Use tsc instead of rollup for TS typing generation ([ec471db](https://github.com/sergiogc9/js-bundle/commit/ec471db6047a8bd6dc7dbde9a23ded07e3088e38))
+
 # 1.0.0 (2022-06-15)
 
 ### Bug Fixes

@@ -10,6 +10,6 @@
 		"strict": true,
 		"target": "ESNext"
 	},
-	"include": ["src/**/*", "rollup.config.js", "release.config.js"],
+	"include": ["src/**/*", "release.config.js", "build.js"],
 	"exclude": ["node_modules"]
 }

@@ -6,7 +6,7 @@
 	"description": "A set of utils to easily bundle JavaScript and TypeScript projects using a common config used in my other projects.",
 	"license": "MIT",
 	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"types": "dist/types/index.d.ts",
 	"publishConfig": {
 		"access": "public"
 	},
@@ -17,8 +17,12 @@
 		"js-bundle": "bin/cli"
 	},
 	"scripts": {
-		"build": "rollup -c ./rollup.config.js",
-		"build:watch": "rollup -w -c ./rollup.config.js",
+		"build": "yarn build:esbuild & yarn build:tsc",
+		"build:esbuild": "node build.js",
+		"build:tsc": "tsc --noEmit false --outDir dist/types --declaration --emitDeclarationOnly",
+		"build:watch": "yarn build:esbuild:watch & yarn build:tsc:watch",
+		"build:esbuild:watch": "yarn build:esbuild --watch",
+		"build:tsc:watch": "yarn build:tsc --watch --preserveWatchOutput",
 		"link": "yarn link",
 		"lint": "eslint . --ignore-path .gitignore",
 		"prepare": "husky install",
@@ -34,13 +38,10 @@
 		"execa": "5.0.0",
 		"figlet": "1.5.0",
 		"humanize-duration": "^3.27.2",
-		"rollup": "^2.75.5",
-		"rollup-plugin-dts": "^4.2.2",
+		"tsc-alias": "^1.6.10",
 		"yargs": "16.2.0"
 	},
 	"devDependencies": {
-		"@rollup/plugin-json": "^4.1.0",
-		"@rollup/plugin-typescript": "^8.3.2",
 		"@semantic-release/changelog": "^6.0.1",
 		"@semantic-release/git": "^10.0.1",
 		"@sergiogc9/eslint-config": "^1.0.8",
@@ -58,7 +59,6 @@
 		"husky": "^8.0.1",
 		"lint-staged": "^13.0.0",
 		"prettier": "^2.6.2",
-		"rollup-plugin-terser": "^7.0.2",
 		"semantic-release": "^19.0.2",
 		"typescript": "^4.7.3"
 	},

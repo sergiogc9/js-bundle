@@ -1,50 +1,14 @@
+import { spawn } from 'child_process';
 import { build, BuildOptions } from 'esbuild';
 import { nodeExternalsPlugin } from 'esbuild-node-externals';
-import { Plugin, rollup } from 'rollup';
-import dts from 'rollup-plugin-dts';
+import { replaceTscAliasPaths } from 'tsc-alias';
+
 import humanizeDuration from 'humanize-duration';
 
-import { BuildArgs } from './types';
+import { BuildArgs, TSCOptions } from './types';
 import log from './lib/log';
 
-const generateTypescriptDefinitionWithoutWatch = async (
-	input: string,
-	outDir: string,
-	extraRollupPlugins: Plugin[],
-	isWatchMode: boolean
-) => {
-	let bundle;
-	let buildFailed = false;
-
-	const startTime = new Date();
-	try {
-		// Normal bundle without watching
-		bundle = await rollup({
-			input,
-			plugins: [dts(), ...extraRollupPlugins]
-		});
-		await bundle.write({
-			file: `${outDir}/types/index.d.ts`
-		});
-	} catch (error: any) {
-		buildFailed = true;
-		log.error('An error ocurred while building TS definitions. Check logs above 🔝');
-	}
-
-	if (bundle) await bundle.close();
-	if (!buildFailed) {
-		log.success(`⚡ TS definitions build done in ${humanizeDuration(new Date().getTime() - startTime.getTime())}`);
-	}
-	if (!isWatchMode) process.exit(buildFailed ? 1 : 0);
-};
-
-const buildWithESBuild = async (
-	input: string,
-	outDir: string,
-	isWatchMode: boolean,
-	esbuildOptions: BuildOptions,
-	onRebuildCallback: () => void
-) => {
+const buildWithESBuild = async (input: string, outDir: string, isWatchMode: boolean, esbuildOptions: BuildOptions) => {
 	const commonConfig: BuildOptions = {
 		bundle: true,
 		entryPoints: [input],
@@ -77,7 +41,6 @@ const buildWithESBuild = async (
 							}
 							if (result) {
 								log.success('⚡ esbuild rebuild done');
-								onRebuildCallback();
 							}
 						}
 				  }
@@ -89,12 +52,45 @@ const buildWithESBuild = async (
 	log.success(`⚡ esbuild build done in ${humanizeDuration(new Date().getTime() - startTime.getTime())}`);
 };
 
+const buildTypeScriptDefinitions = (isWatchMode: boolean, outDir: string, tscOptions: TSCOptions) => {
+	const { extendedDiagnostics = false, incremental = false } = tscOptions;
+
+	let command = `tsc --noEmit false --outDir ${outDir}/types --declaration --emitDeclarationOnly --pretty`;
+
+	if (extendedDiagnostics) command += ' --extendedDiagnostics';
+	if (incremental) command += ' --incremental';
+	if (isWatchMode) command += ' --watch --preserveWatchOutput';
+
+	return new Promise((resolve, reject) => {
+		const startTime = new Date();
+		const tscChild = spawn('yarn', command.split(' '), { stdio: 'inherit' });
+
+		if (isWatchMode)
+			replaceTscAliasPaths({
+				declarationDir: `${outDir}/types`,
+				outDir: `${outDir}/types`,
+				watch: true
+			});
+
+		tscChild.on('exit', async code => {
+			if (code === 0) {
+				if (!isWatchMode) await replaceTscAliasPaths({ declarationDir: `${outDir}/types`, outDir: `${outDir}/types` });
+				log.success(`⚡ TS definitions build done in ${humanizeDuration(new Date().getTime() - startTime.getTime())}`);
+				resolve(code);
+			} else {
+				log.error('An error ocurred while building TS definitions. Check logs above 🔝');
+				reject(code);
+			}
+		});
+	});
+};
+
 const buildPackage = async ({
 	entryPoint = 'src/index.ts',
 	esbuildOptions = {},
 	isWatchMode = false,
 	outDir = 'dist',
-	rollupPlugins = [],
+	tscOptions = {},
 	withESBuild = true,
 	withTSDefinitions = true
 }: BuildArgs = {}) => {
@@ -102,14 +98,13 @@ const buildPackage = async ({
 
 	if (isWatchMode) log.info('Running build in watch mode...');
 
-	const generateTSDefinitions = async () => {
-		if (withTSDefinitions) {
-			await generateTypescriptDefinitionWithoutWatch(entryPoint, outDir, rollupPlugins, isWatchMode);
-		}
-	};
+	const promises = [];
 
-	if (withESBuild) await buildWithESBuild(entryPoint, outDir, isWatchMode, esbuildOptions, generateTSDefinitions);
-	await generateTSDefinitions();
+	if (withTSDefinitions) promises.push(buildTypeScriptDefinitions(isWatchMode, outDir, tscOptions));
+	if (withESBuild) promises.push(buildWithESBuild(entryPoint, outDir, isWatchMode, esbuildOptions));
+
+	const responses = await Promise.allSettled(promises);
+	if (responses.some(response => response.status === 'rejected')) process.exit(1);
 };
 
 export { buildPackage };

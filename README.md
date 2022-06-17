@@ -6,4 +6,4 @@
 
 A set of utils to easily bundle JavaScript and TypeScript projects using a common config used in my other projects.
 
-This package uses `esbuild` to build the source code and `rollup` together with `rollup-plugin-dts` plugin to generate the TypeScript definitions.
+This package uses `esbuild` to build the source code and `tsc` to generate the TypeScript definitions.

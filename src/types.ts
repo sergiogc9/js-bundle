@@ -1,14 +1,18 @@
 import { BuildOptions } from 'esbuild';
-import { Plugin } from 'rollup';
+
+interface TSCOptions {
+	extendedDiagnostics?: boolean;
+	incremental?: boolean;
+}
 
 interface BuildArgs {
 	entryPoint?: string;
 	esbuildOptions?: BuildOptions;
 	isWatchMode?: boolean;
 	outDir?: string;
-	rollupPlugins?: Plugin[];
+	tscOptions?: TSCOptions;
 	withESBuild?: boolean;
 	withTSDefinitions?: boolean;
 }
 
-export type { BuildArgs };
+export type { BuildArgs, TSCOptions };

@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/sergiogc9/js-bundle/compare/v1.1.1...v1.1.2) (2022-06-18)
+
+### Bug Fixes
+
+- Use an older target when building cjs build ([a35e208](https://github.com/sergiogc9/js-bundle/commit/a35e2080a3726ed8359551eaaf1c01b297d392d1))
+- Use older target when building in CommonJS ([2530347](https://github.com/sergiogc9/js-bundle/commit/25303472d35004fa1e7d10854d439ac046095b96))
+
 ## [1.1.2-beta.1](https://github.com/sergiogc9/js-bundle/compare/v1.1.1...v1.1.2-beta.1) (2022-06-18)
 
 ### Bug Fixes

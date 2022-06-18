@@ -24,6 +24,7 @@ const buildPackage = async () => {
 			outdir: `dist/cjs/`,
 			platform: 'node',
 			plugins: [nodeExternalsPlugin()],
+			target: 'es2016',
 			watch: isWatchMode
 		}),
 		build({

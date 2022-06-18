@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/sergiogc9/js-bundle/compare/v1.1.0...v1.1.1) (2022-06-18)
+
+### Bug Fixes
+
+- Use exports field in package.json ([31c5a8b](https://github.com/sergiogc9/js-bundle/commit/31c5a8be095fdbbcbcb47343c5ef8a75bed342a0))
+
 # [1.1.0](https://github.com/sergiogc9/js-bundle/compare/v1.0.0...v1.1.0) (2022-06-17)
 
 ### Features

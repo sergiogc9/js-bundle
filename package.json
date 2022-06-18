@@ -5,8 +5,17 @@
 	"repository": "git@github.com:sergiogc9/js-bundle.git",
 	"description": "A set of utils to easily bundle JavaScript and TypeScript projects using a common config used in my other projects.",
 	"license": "MIT",
-	"main": "dist/index.js",
+	"main": "dist/cjs/index.js",
 	"types": "dist/types/index.d.ts",
+	"exports": {
+		"import": "./dist/esm/index.js",
+		"require": "./dist/cjs/index.js"
+	},
+	"keywords": [
+		"bundle",
+		"esbuild",
+		"tsc"
+	],
 	"publishConfig": {
 		"access": "public"
 	},
@@ -59,7 +68,7 @@
 		"husky": "^8.0.1",
 		"lint-staged": "^13.0.0",
 		"prettier": "^2.6.2",
-		"semantic-release": "^19.0.2",
+		"semantic-release": "^19.0.3",
 		"typescript": "^4.7.3"
 	},
 	"lint-staged": {

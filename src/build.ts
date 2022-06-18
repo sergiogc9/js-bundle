@@ -25,6 +25,7 @@ const buildWithESBuild = async (input: string, outDir: string, isWatchMode: bool
 			logLevel: 'silent',
 			outfile: `${outDir}/cjs/index.js`,
 			plugins: [nodeExternalsPlugin()],
+			target: 'es2016',
 			watch: isWatchMode,
 			...esbuildOptions
 		}),

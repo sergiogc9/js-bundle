@@ -1,3 +1,9 @@
+## [1.1.3](https://github.com/sergiogc9/js-bundle/compare/v1.1.2...v1.1.3) (2022-06-19)
+
+### Bug Fixes
+
+- Save incremental build from tsc in node modules cache directory instead of dist ([ca8f877](https://github.com/sergiogc9/js-bundle/commit/ca8f877d029d0afb2c530ffcc1e2576b73f11b13))
+
 ## [1.1.2](https://github.com/sergiogc9/js-bundle/compare/v1.1.1...v1.1.2) (2022-06-18)
 
 ### Bug Fixes

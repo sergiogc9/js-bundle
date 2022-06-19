@@ -5,8 +5,9 @@ import { replaceTscAliasPaths } from 'tsc-alias';
 
 import humanizeDuration from 'humanize-duration';
 
-import { BuildArgs, TSCOptions } from './types';
 import log from './lib/log';
+import { getCurrentPackageJson } from './lib/node';
+import { BuildArgs, TSCOptions } from './types';
 
 const buildWithESBuild = async (input: string, outDir: string, isWatchMode: boolean, esbuildOptions: BuildOptions) => {
 	const commonConfig: BuildOptions = {
@@ -59,7 +60,10 @@ const buildTypeScriptDefinitions = (isWatchMode: boolean, outDir: string, tscOpt
 	let command = `tsc --noEmit false --outDir ${outDir}/types --declaration --emitDeclarationOnly --pretty`;
 
 	if (extendedDiagnostics) command += ' --extendedDiagnostics';
-	if (incremental) command += ' --incremental';
+	if (incremental) {
+		const packageName = getCurrentPackageJson().name;
+		command += ` --incremental --tsBuildInfoFile ./node_modules/.cache/${packageName}/tsconfig.tsbuildinfo`;
+	}
 	if (isWatchMode) command += ' --watch --preserveWatchOutput';
 
 	return new Promise((resolve, reject) => {

@@ -2119,10 +2119,10 @@ follow-redirects@^1.14.0:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.1.tgz#0ca6a452306c9b276e4d3127483e29575e207ad5"
   integrity sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==
 
-fox-awesome-cli@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/fox-awesome-cli/-/fox-awesome-cli-1.1.1.tgz#66585e69b4e6617ec606a47d24c30dd6637e4c80"
-  integrity sha512-RaQBSs+9TrJJ0nCbk5P5qyfdBgfVi3sCWdSMSJMDh9eBo7YSLdFsBjFaKnGEb/P7HSQaZyVjrI9Bd4CYnpZG1g==
+fox-awesome-cli@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/fox-awesome-cli/-/fox-awesome-cli-1.1.2.tgz#d769ab408230e4656a600bf7e7e341e60f7ecd95"
+  integrity sha512-v7jQsiTPOTBcjqZNtLhNuhqqh/bNC0JMBP+RqEoggBtOFCHcp0AvwKqr4wXDfaJWSctk5JDjQNwr0IUfG3IzKA==
   dependencies:
     axios "^0.21.1"
     chalk "4.1.0"

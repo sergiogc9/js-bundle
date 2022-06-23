@@ -6,6 +6,7 @@
 	"description": "A set of utils to easily bundle JavaScript and TypeScript projects using a common config used in my other projects.",
 	"license": "MIT",
 	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
 	"types": "dist/types/index.d.ts",
 	"exports": {
 		"import": "./dist/esm/index.js",

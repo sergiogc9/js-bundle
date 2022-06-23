@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/sergiogc9/js-bundle/compare/v1.1.3...v1.2.0) (2022-06-23)
+
+### Features
+
+- Add platform option into build command ([a99e696](https://github.com/sergiogc9/js-bundle/commit/a99e696d45ea41441a9b7327c3d1eba883bc4a4b))
+- Enable option to define multiple entrypoints in bundle API ([1e707db](https://github.com/sergiogc9/js-bundle/commit/1e707db7588086f18106d7c4d92cf55b6f16717a))
+
 ## [1.1.3](https://github.com/sergiogc9/js-bundle/compare/v1.1.2...v1.1.3) (2022-06-19)
 
 ### Bug Fixes

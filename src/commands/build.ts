@@ -1,3 +1,4 @@
+import { Platform } from 'esbuild';
 import { Argv } from 'yargs';
 
 import { buildPackage } from '../build';
@@ -9,6 +10,7 @@ interface CommandArgs {
 	onlyBundle?: boolean;
 	onlyTypes?: boolean;
 	outDir?: string;
+	platform?: string;
 	tscIncremental?: boolean;
 	tscExtendDiagnostics?: boolean;
 	watch?: boolean;
@@ -40,6 +42,12 @@ const config = (yargs: Argv) => {
 			describe: 'Output directory',
 			type: 'string'
 		})
+		.option('platform', {
+			choices: ['browser', 'neutral', 'node'],
+			default: 'browser',
+			describe: 'Esbuild platform option',
+			type: 'string'
+		})
 		.option('tsc-incremental', {
 			default: false,
 			describe: 'Use incremental flag with tsc',
@@ -62,7 +70,7 @@ const handler = (args: CommandArgs) => {
 	catchError(() => {
 		checkNodeInstallation();
 
-		const { onlyBundle, onlyTypes, outDir, tscIncremental, tscExtendDiagnostics, watch } = args;
+		const { onlyBundle, onlyTypes, outDir, platform, tscIncremental, tscExtendDiagnostics, watch } = args;
 
 		log.info('Building app from cli...');
 		buildPackage({
@@ -73,7 +81,10 @@ const handler = (args: CommandArgs) => {
 				incremental: tscIncremental
 			},
 			withESBuild: !onlyTypes,
-			withTSDefinitions: !onlyBundle
+			withTSDefinitions: !onlyBundle,
+			esbuildOptions: {
+				platform: platform as Platform
+			}
 		});
 	});
 };

@@ -9,10 +9,15 @@ import log from './lib/log';
 import { getCurrentPackageJson } from './lib/node';
 import { BuildArgs, TSCOptions } from './types';
 
-const buildWithESBuild = async (input: string, outDir: string, isWatchMode: boolean, esbuildOptions: BuildOptions) => {
+const buildWithESBuild = async (
+	input: string | string[],
+	outDir: string,
+	isWatchMode: boolean,
+	esbuildOptions: BuildOptions
+) => {
 	const commonConfig: BuildOptions = {
 		bundle: true,
-		entryPoints: [input],
+		entryPoints: typeof input === 'string' ? [input] : input,
 		legalComments: 'none',
 		minify: true,
 		sourcemap: true
@@ -24,7 +29,8 @@ const buildWithESBuild = async (input: string, outDir: string, isWatchMode: bool
 			...commonConfig,
 			format: 'cjs',
 			logLevel: 'silent',
-			outfile: `${outDir}/cjs/index.js`,
+			outdir: typeof input === 'string' ? undefined : `${outDir}/cjs`,
+			outfile: typeof input === 'string' ? `${outDir}/cjs/index.js` : undefined,
 			plugins: [nodeExternalsPlugin()],
 			target: 'es2016',
 			watch: isWatchMode,
@@ -33,7 +39,8 @@ const buildWithESBuild = async (input: string, outDir: string, isWatchMode: bool
 		build({
 			...commonConfig,
 			format: 'esm',
-			outfile: `${outDir}/esm/index.js`,
+			outdir: typeof input === 'string' ? undefined : `${outDir}/esm`,
+			outfile: typeof input === 'string' ? `${outDir}/esm/index.js` : undefined,
 			plugins: [nodeExternalsPlugin()],
 			watch: isWatchMode
 				? {

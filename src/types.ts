@@ -6,7 +6,7 @@ interface TSCOptions {
 }
 
 interface BuildArgs {
-	entryPoint?: string;
+	entryPoint?: string | string[];
 	esbuildOptions?: BuildOptions;
 	isWatchMode?: boolean;
 	outDir?: string;

@@ -8,6 +8,7 @@ import { checkNodeInstallation } from '../lib/node';
 
 interface CommandArgs {
 	onlyBundle?: boolean;
+	onlyEs6?: boolean;
 	onlyTypes?: boolean;
 	outDir?: string;
 	platform?: string;
@@ -34,6 +35,11 @@ const config = (yargs: Argv) => {
 		.option('only-types', {
 			default: false,
 			describe: 'Only generate TypeScript types. No bundling will be performed',
+			type: 'boolean'
+		})
+		.option('only-es6', {
+			default: false,
+			describe: 'Only perform bundling with ES6 (mjs) target. No cjs bundling will be performed.',
 			type: 'boolean'
 		})
 		.option('out-dir', {
@@ -70,11 +76,12 @@ const handler = (args: CommandArgs) => {
 	catchError(() => {
 		checkNodeInstallation();
 
-		const { onlyBundle, onlyTypes, outDir, platform, tscIncremental, tscExtendDiagnostics, watch } = args;
+		const { onlyBundle, onlyTypes, onlyEs6, outDir, platform, tscIncremental, tscExtendDiagnostics, watch } = args;
 
 		log.info('Building app from cli...');
 		buildPackage({
 			isWatchMode: watch,
+			onlyES6: onlyEs6,
 			outDir,
 			tscOptions: {
 				extendedDiagnostics: tscExtendDiagnostics,

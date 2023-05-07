@@ -13,6 +13,7 @@ const buildWithESBuild = async (
 	input: string | string[],
 	outDir: string,
 	isWatchMode: boolean,
+	onlyES6: boolean,
 	esbuildOptions: BuildOptions
 ) => {
 	const commonConfig: BuildOptions = {
@@ -24,18 +25,25 @@ const buildWithESBuild = async (
 	};
 
 	const startTime = new Date();
-	await Promise.all([
-		build({
-			...commonConfig,
-			format: 'cjs',
-			logLevel: 'silent',
-			outdir: typeof input === 'string' ? undefined : `${outDir}/cjs`,
-			outfile: typeof input === 'string' ? `${outDir}/cjs/index.js` : undefined,
-			plugins: [nodeExternalsPlugin()],
-			target: 'es2016',
-			watch: isWatchMode,
-			...esbuildOptions
-		}),
+	const buildTasks: Promise<any>[] = [];
+
+	if (!onlyES6) {
+		buildTasks.push(
+			build({
+				...commonConfig,
+				format: 'cjs',
+				logLevel: 'silent',
+				outdir: typeof input === 'string' ? undefined : `${outDir}/cjs`,
+				outfile: typeof input === 'string' ? `${outDir}/cjs/index.js` : undefined,
+				plugins: [nodeExternalsPlugin()],
+				target: 'es2016',
+				watch: isWatchMode,
+				...esbuildOptions
+			})
+		);
+	}
+
+	buildTasks.push(
 		build({
 			...commonConfig,
 			format: 'esm',
@@ -56,7 +64,9 @@ const buildWithESBuild = async (
 				: false,
 			...esbuildOptions
 		})
-	]);
+	);
+
+	await Promise.all(buildTasks);
 
 	log.success(`⚡ esbuild build done in ${humanizeDuration(new Date().getTime() - startTime.getTime())}`);
 };
@@ -101,6 +111,7 @@ const buildPackage = async ({
 	entryPoint = 'src/index.ts',
 	esbuildOptions = {},
 	isWatchMode = false,
+	onlyES6 = false,
 	outDir = 'dist',
 	tscOptions = {},
 	withESBuild = true,
@@ -113,10 +124,15 @@ const buildPackage = async ({
 	const promises = [];
 
 	if (withTSDefinitions) promises.push(buildTypeScriptDefinitions(isWatchMode, outDir, tscOptions));
-	if (withESBuild) promises.push(buildWithESBuild(entryPoint, outDir, isWatchMode, esbuildOptions));
+	if (withESBuild) promises.push(buildWithESBuild(entryPoint, outDir, isWatchMode, onlyES6, esbuildOptions));
 
 	const responses = await Promise.allSettled(promises);
-	if (responses.some(response => response.status === 'rejected')) process.exit(1);
+	const failedResponse = responses.find(response => response.status === 'rejected');
+	if (failedResponse) {
+		log.error(`An error ocurred with reason:`);
+		log.error((failedResponse as any).reason);
+		process.exit(1);
+	}
 };
 
 export { buildPackage };

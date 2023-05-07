@@ -1,3 +1,9 @@
+# [1.3.0](https://github.com/sergiogc9/js-bundle/compare/v1.2.0...v1.3.0) (2023-05-07)
+
+### Features
+
+- Add build parameter to only build for es6 target ([3357ca7](https://github.com/sergiogc9/js-bundle/commit/3357ca78c7fb7e418e61c439f2c47d14e4786e2f))
+
 # [1.2.0](https://github.com/sergiogc9/js-bundle/compare/v1.1.3...v1.2.0) (2022-06-23)
 
 ### Features
